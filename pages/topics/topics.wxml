@@ -1,0 +1,4 @@
+<import src="../common/nav.wxml" />
+<view class="page topics">
+    <template is="nav" data="{{navList,activeIndex}}"/>
+</view>
