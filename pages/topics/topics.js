@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    postsList:[],
     navList:[
       {
         id:'all',
@@ -27,20 +28,43 @@ Page({
         title:'招聘'
       }
     ],
-    activeIndex:2
-
+    activeIndex:0,
+    hidden:false
   },
   onTapTag: function (e) {
     this.setData({
       activeIndex:e.currentTarget.dataset.index
     })
   },
+  lower: function() {
+    console.log('滑动底部加载');
+
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // setTimeout (() => {
+    //   this.setData ({
+    //     hidden: true
+    //   })
+    // },3000)
+    var api_url = 'https://cnodejs.org/api/v1/topics';
+    api_url += '?tab=all&page=0&limit=10';
+    console.log(api_url);
+    var that = this;
+    wx.request({
+      url: api_url,
+      method: 'GET',
+      success: function (res) {
+        console.log();
+        that.setData({
+          hidden: true,
+          postsList: res.data.data
+        })
+      }
+    })
   },
 
   /**
